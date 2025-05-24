@@ -1,84 +1,29 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión - Sistema de Imprenta Digital</title>
-    <!-- Pasar luego a un css  -->
+    {# Enlaza tu archivo CSS #}
+    <link rel="stylesheet" href="{% static 'styile.css' %}">
     <style>
+        /* Mueve solo esta parte de CSS si quieres que solo aplique aquí.
+           O puedes moverla al archivo style.css si es global */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
-        }
-        .login-container {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 350px;
-            text-align: center;
-        }
-        .login-container h2 {
-            margin-bottom: 25px;
-            color: #333;
-        }
-        .login-container form p {
-            margin-bottom: 15px;
-            text-align: left;
-        }
-        .login-container label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #555;
-        }
-        .login-container input[type="text"],
-        .login-container input[type="password"] {
-            width: calc(100% - 20px);
-            padding: 10px;
-            margin-top: 5px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        .login-container button {
-            background-color: #007bff;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            width: 100%;
-            margin-top: 20px;
-            transition: background-color 0.3s ease;
-        }
-        .login-container button:hover {
-            background-color: #0056b3;
-        }
-        .errorlist {
-            color: red;
-            list-style-type: none;
-            padding: 0;
-            margin-top: 10px;
-            text-align: left;
-        }
-        .errorlist li {
-            margin-bottom: 5px;
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
+    <div class="login-box"> {# Cambié la clase a login-box #}
         <h2>Iniciar Sesión</h2>
         <form method="post">
-            {% csrf_token %} {# ¡Importante para seguridad en Django! #}
-            {{ form.as_p }} {# Renderiza los campos del formulario como párrafos #}
+            {% csrf_token %}
+            {{ form.as_p }}
             <button type="submit">Iniciar Sesión</button>
         </form>
     </div>

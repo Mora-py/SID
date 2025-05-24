@@ -28,7 +28,7 @@ class DashboardView(LoginRequiredMixin, View):
             'is_admin': request.user.is_staff or request.user.is_superuser,
             'username': request.user.username,
         }
-        return render(request, self.template_name, datos)
+        return render(request, self.planitlla, datos)
 
 class LogoutView(View):
     def get(self, request):
