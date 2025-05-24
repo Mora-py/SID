@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Imprenta Digital</title>
+    <!-- Pasar luego a un css  -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+            font-size: 24px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        .nav-bar {
+            background-color: #333;
+            padding: 10px 0;
+            text-align: center;
+            margin-top: 60px; /* Para que no se solape con el header */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .nav-bar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 5px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .nav-bar a:hover {
+            background-color: #555;
+        }
+        .nav-bar .logout {
+            background-color: #dc3545;
+        }
+        .nav-bar .logout:hover {
+            background-color: #c82333;
+        }
+        .main-content {
+            padding: 40px 20px;
+            margin-top: 20px; /* Espacio debajo de la barra de navegación */
+            text-align: center;
+        }
+        .welcome-message {
+            margin-bottom: 30px;
+            font-size: 20px;
+            color: #444;
+        }
+        .options-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .option-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            padding: 25px;
+            text-align: center;
+            flex: 1 1 calc(33% - 40px); /* 3 cards per row with gap */
+            min-width: 280px;
+            box-sizing: border-box;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .option-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+        .option-card h3 {
+            color: #007bff;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        .option-card p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .option-card .btn {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .option-card .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        Sistema de Imprenta Digital
+    </div>
+
+    <div class="nav-bar">
+        <a href="{% url 'dashboard' %}">Home</a>
+        <a href="#">Facturas</a>
+        <a href="#">Notas de C/D</a>
+        <a href="#">Ordenes de entrega</a>
+        <a href="#">Usuarios</a> {# Este lo mantendremos visible para todos, pero las opciones internas de Crear/Editar serán solo para admin #}
+        <a href="{% url 'logout' %}" class="logout">Cerrar Sesión</a>
+    </div>
+
+    <div class="main-content">
+        <p class="welcome-message">¡Bienvenido, {{ username }}!</p>
+
+        <div class="options-grid">
+            <div class="option-card">
+                <h3>Facturas</h3>
+                <p>Gestiona las facturas de tus clientes.</p>
+                <a href="#" class="btn">Ir a Facturas</a>
+            </div>
+
+            <div class="option-card">
+                <h3>Notas de C/D</h3>
+                <p>Crea y edita notas de crédito y débito.</p>
+                <a href="#" class="btn">Ir a Notas</a>
+            </div>
+
+            <div class="option-card">
+                <h3>Ordenes de Entrega</h3>
+                <p>Administra las órdenes de entrega de tus trabajos.</p>
+                <a href="#" class="btn">Ir a Órdenes</a>
+            </div>
+
+            {% if is_admin %}
+            <div class="option-card admin-option">
+                <h3>Crear Usuario</h3>
+                <p>Permite crear nuevas cuentas de usuario en el sistema.</p>
+                <a href="#" class="btn">Crear Usuario</a>
+            </div>
+            <div class="option-card admin-option">
+                <h3>Editar Usuario</h3>
+                <p>Modifica la información de los usuarios existentes.</p>
+                <a href="#" class="btn">Editar Usuario</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
