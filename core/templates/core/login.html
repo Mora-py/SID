@@ -5,11 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión - Sistema de Imprenta Digital</title>
-    {# Enlaza tu archivo CSS #}
     <link rel="stylesheet" href="{% static 'styile.css' %}">
     <style>
-        /* Mueve solo esta parte de CSS si quieres que solo aplique aquí.
-           O puedes moverla al archivo style.css si es global */
         body {
             display: flex;
             justify-content: center;
@@ -19,7 +16,7 @@
     </style>
 </head>
 <body>
-    <div class="login-box"> {# Cambié la clase a login-box #}
+    <div class="login-box">
         <h2>Iniciar Sesión</h2>
         <form method="post">
             {% csrf_token %}

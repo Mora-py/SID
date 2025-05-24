@@ -33,4 +33,4 @@ class DashboardView(LoginRequiredMixin, View):
 class LogoutView(View):
     def get(self, request):
         logout(request)
-        return redirect('login') # Redirige a la página de login después del logout
+        return redirect('login') 
