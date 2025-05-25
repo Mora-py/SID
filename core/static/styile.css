@@ -1,7 +1,7 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
-    color: #333;
+    color: #000000;
     margin: 0;
     padding: 0;
 }
@@ -62,8 +62,6 @@ body {
 .errorlist {
     color: red;
     list-style-type: none;
-    padding: 0;
-    margin-top: 10px;
     text-align: left;
 }
 .errorlist li {
@@ -76,7 +74,6 @@ body {
     padding: 15px 20px;
     text-align: center;
     font-size: 24px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     position: fixed;
     width: 100%;
     top: 0;
@@ -84,22 +81,19 @@ body {
     z-index: 1000;
 }
 .nav-bar {
-    background-color: #333;
+    background-color: #007bff;
     padding: 10px 0;
     text-align: center;
     margin-top: 60px; 
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 .nav-bar a {
     color: white;
     text-decoration: none;
     padding: 10px 20px;
-    margin: 0 5px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+    
 }
 .nav-bar a:hover {
-    background-color: #555;
+    background-color: #1900ff;
 }
 .nav-bar .logout {
     background-color: #dc3545;

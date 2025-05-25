@@ -5,5 +5,5 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
     path('dashboard/', DashboardView.as_view(), name='dashboard'),
     path('logout/', LogoutView.as_view(), name='logout'),
-    path('', LoginView.as_view(), name='root'), # Redirigir la raíz a la página de login
+    path('', LoginView.as_view(), name='root'),
 ]
