@@ -16,8 +16,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from core.views import LoginView, DashboardView, LogoutView
+from facturas.views import CrearFacturaView, FacturaCreadaView, FacturaDashboardView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('core.urls')),
+    path('login/', LoginView.as_view(), name='login'),
+    path('dashboard/', DashboardView.as_view(), name='dashboard'),
+    path('logout/', LogoutView.as_view(), name='logout'),
+    path('', LoginView.as_view(), name='root'),
+    path('factura-dashboard/', FacturaDashboardView.as_view(), name='factura-dashboard'),
+    path('crear-factura/', CrearFacturaView.as_view(), name='crear-factura'),
+    path('factura-creada/', FacturaCreadaView.as_view(), name='factura-creada'),
 ]

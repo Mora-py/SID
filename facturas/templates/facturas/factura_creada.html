@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Factura creada</title>
+    <link rel="stylesheet" href="{% static 'core/styile.css' %}">
+</head>
+<body>
+    <div class="header">
+        Sistema de Imprenta Digital
+    </div>
+
+    <div class="nav-bar">
+        <a href="{% url 'dashboard' %}">Home</a>
+        <a href="#">Facturas</a>
+        <a href="#">Notas de C/D</a>
+        <a href="#">Ordenes de entrega</a>
+        <a href="#">Usuarios</a>
+        <a href="{% url 'logout' %}" class="logout">Cerrar Sesión</a>
+    </div>
+    <h1>¡Factura creada exitosamente!</h1>
+</body>
+</html>

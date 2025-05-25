@@ -14,7 +14,7 @@
 
     <div class="nav-bar">
         <a href="{% url 'dashboard' %}">Home</a>
-        <a href="#">Facturas</a>
+        <a href="{% url 'factura-dashboard' %}">Facturas</a>
         <a href="#">Notas de C/D</a>
         <a href="#">Ordenes de entrega</a>
         <a href="#">Usuarios</a>
@@ -43,17 +43,11 @@
                 <a href="#" class="btn">Ir a Órdenes</a>
             </div>
 
-            <!--TODO: ESTO VA EN EL APARTADO DE USUARIO NO AQUI LO PUSE AQUI DE PRUEBA-->
             {% if is_admin %}
-            <div class="option-card admin-option">
-                <h3>Crear Usuario</h3>
-                <p>Permite crear nuevas cuentas de usuario en el sistema.</p>
-                <a href="#" class="btn">Crear Usuario</a>
-            </div>
-            <div class="option-card admin-option">
-                <h3>Editar Usuario</h3>
-                <p>Modifica la información de los usuarios existentes.</p>
-                <a href="#" class="btn">Editar Usuario</a>
+            <div class="option-card">
+                <h3>Gestion de Usuarios</h3>
+                <p>Administra los usuarios </p>
+                <a href="#" class="btn">Ir a Usuarios</a>
             </div>
             {% endif %}
         </div>
