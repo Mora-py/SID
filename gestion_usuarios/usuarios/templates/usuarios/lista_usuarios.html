@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Usuarios</title>
+    <link rel="stylesheet" href="{% static 'usuarios/css/lista_usuarios.css' %}"/>
+</head>
+<body>
+    <h1>Lista de Usuarios</h1>
+    <table>
+        <tr>
+            <th>Primer Nombre</th>
+            <th>Primer Apellido</th>
+            <th>Documento de Identidad</th>
+            <th>Numero Identidad</th>
+            <th>Correo Electrónico</th>
+            <th>Acciones</th>
+        </tr>
+        {% for usuario in usuarios %}
+        <tr>
+            <td>{{ usuario.primer_nombre }}</td>
+            <td>{{ usuario.primer_apellido }}</td>
+            <td>{{ usuario.documento_identidad }}</td>
+            <td>{{ usuario.numero_identidad }}</td>
+            <td>{{ usuario.correo_electronico }}</td>
+            <td>
+                <a href="{% url 'modificar_usuario' usuario.id %}">Modificar</a>
+                <a href="{% url 'eliminar_usuario' usuario.id %}">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="{% url 'crear_usuario' %}" class="create-user-link">Crear Usuario</a>
+</body>
+</html>
