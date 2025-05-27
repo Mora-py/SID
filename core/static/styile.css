@@ -159,9 +159,11 @@ body {
     margin-right: auto;
 }
 
-/* === ESTILOS PARA ORDENES DE ENTREGA Y NOTAS DE DEBITO/CREDITO === */
+li {
+    list-style-type: none;
+    margin: 10px 0;
+}
 
-/* Tablas */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -240,7 +242,6 @@ button:hover, .btn:hover {
     background-color: #0056b3;
 }
 
-/* Secciones de productos/conceptos */
 .producto-form, .concepto-form {
     border: 1px solid #e0e0e0;
     border-radius: 6px;
@@ -275,6 +276,40 @@ a:hover {
 }
 p {
     color: #444;
+}
+
+
+.main-content ul {
+    max-width: 500px;
+    margin: 30px auto 0 auto;
+    padding: 0;
+}
+
+.main-content ul li {
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    margin-bottom: 15px;
+    padding: 16px 20px;
+    font-size: 17px;
+    transition: box-shadow 0.2s, background 0.2s;
+}
+
+.main-content ul li a {
+    color: #007bff;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.main-content ul li a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+.main-content h2 {
+    color: #007bff;
+    margin-bottom: 25px;
 }
 
 /* Responsive */

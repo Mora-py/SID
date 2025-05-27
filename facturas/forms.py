@@ -15,6 +15,10 @@ class FacturaForm(forms.ModelForm):
         ]
         widgets = {
             'fecha_emision': forms.DateInput(attrs={'type': 'date'}),
+            'numero_factura': forms.TextInput(attrs={
+                'readonly': 'readonly',
+                'placeholder': 'Se generará automáticamente'
+            }),
         }
 
 class ProductoFacturaForm(forms.ModelForm):
@@ -22,7 +26,6 @@ class ProductoFacturaForm(forms.ModelForm):
         model = ProductoFactura
         fields = ['nombre', 'cantidad', 'precio_unitario']
 
-# Formset para productos asociados a una factura
 ProductoFacturaFormSet = inlineformset_factory(
     Factura,
     ProductoFactura,
