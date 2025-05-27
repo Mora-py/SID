@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.conf import settings
 import re
 from django.core.exceptions import ValidationError
+from decimal import Decimal     
 
 
 # Create your models here.
@@ -15,58 +16,46 @@ def validar_cedula_rif(valor):
         )
 
 
+def validar_fecha_emision(valor):
+    if valor > timezone.now().date():
+        raise ValidationError('La fecha de emisión no puede ser en el futuro.')
+
+
 class Factura(models.Model):
-    lugar_emision = models.CharField(max_length=100)
-    fecha_emision = models.DateField(default=timezone.now)
     nombre_cliente = models.CharField(max_length=100)
-    telefono_cliente = models.CharField(max_length=11)
-    cedula_cliente = models.CharField(
-        max_length=11,
-        validators=[validar_cedula_rif]
-    )
-    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='facturas')
-    numero_factura = models.PositiveIntegerField()
-    productos = models.JSONField(
-        help_text="Lista de productos con cantidad, nombre y precio_unitario. Ejemplo: [{'nombre': 'Producto A', 'cantidad': 2, 'precio_unitario': 10.5}]"
-    )
-    subtotal = models.DecimalField(max_digits=10, decimal_places=2)
-    iva = models.DecimalField(max_digits=10, decimal_places=2)
-    total = models.DecimalField(max_digits=10, decimal_places=2)
+    lugar_emision = models.CharField(max_length=100)
+    fecha_emision = models.DateField(validators=[validar_fecha_emision])
+    telefono_cliente = models.CharField(max_length=20)
+    cedula_cliente = models.CharField(max_length=12, validators=[validar_cedula_rif])
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    subtotal = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    iva = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    numero_factura = models.CharField(max_length=20, unique=True, blank=True, null=True)
 
-    class Meta:
-        unique_together = ('usuario', 'numero_factura')
+    def calcular_totales(self):
+        subtotal = sum([p.cantidad * p.precio_unitario for p in self.productos.all()])
+        iva = subtotal * Decimal('0.16') 
+        total = subtotal + iva
+        self.subtotal = subtotal
+        self.iva = iva
+        self.total = total
 
-    def asignar_numero_factura(self):
-        ultima = Factura.objects.filter(usuario=self.usuario).order_by('-numero_factura').first()
-        if ultima:
-            return ultima.numero_factura + 1
-        return 1
-
-    def calcular_subtotal(self):
-        total = 0
-        for producto in self.productos:
-            cantidad = producto.get('cantidad', 0)
-            precio_unitario = producto.get('precio_unitario', 0)
-            total += cantidad * precio_unitario
-        return total
-    
-    def calcular_iva(self):
-        return self.subtotal * 0.16
-    
-    def calcular_total(self):
-        return self.subtotal + self.iva
-    
-    def save(self, *args, **kwargs):
-        self.numero_factura = self.asignar_numero_factura()
-        self.subtotal = self.calcular_subtotal()
-        self.iva = self.calcular_iva()
-        self.total = self.calcular_total()
-        super().save(*args, **kwargs)
+    def save(self, *args, **kwargs): 
+        is_new = self.pk is None
+        super().save(*args, **kwargs)  # Guarda primero para obtener el ID
+        if not is_new:
+            self.calcular_totales()
+            super().save(update_fields=['subtotal', 'iva', 'total'])
 
     def __str__(self):
-        return f"Factura {self.id} - {self.nombre_cliente}"
+        return f"Factura #{self.id} - {self.nombre_cliente}"
 
+class ProductoFactura(models.Model):
+    factura = models.ForeignKey(Factura, related_name='productos', on_delete=models.CASCADE)
+    nombre = models.CharField(max_length=100)
+    cantidad = models.PositiveIntegerField()
+    precio_unitario = models.DecimalField(max_digits=10, decimal_places=2)
 
-
-
-
+    def __str__(self):
+        return f"{self.nombre} (x{self.cantidad})"

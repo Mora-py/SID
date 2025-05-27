@@ -1,0 +1,30 @@
+from django import forms
+from django.forms import ModelForm
+from .models import OrdenDeEntrega, ProductoEntrega
+
+class OrdenDeEntregaForm(ModelForm):
+    class Meta:
+        model = OrdenDeEntrega
+        fields = [
+            'factura_afectada',
+            'fecha_emision',
+            'direccion_entrega',
+            'observaciones'
+        ]
+        widgets = {
+            'factura_afectada': forms.Select(),
+            'fecha_emision': forms.DateInput(attrs={'type': 'date'}),
+            'direccion_entrega': forms.TextInput(),
+            'observaciones': forms.Textarea(attrs={'rows': 4}),
+        }
+        labels = {
+            'factura_afectada': 'Factura Asociada',
+            'fecha_emision': 'Fecha de Emisión',
+            'direccion_entrega': 'Dirección de Entrega',
+            'observaciones': 'Observaciones',
+        }
+
+class ProductoEntregaForm(ModelForm):
+    class Meta:
+        model = ProductoEntrega
+        fields = ['descripcion', 'cantidad_entregada', 'monto_unitario']

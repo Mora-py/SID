@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Notas de Débito de {{ usuario }}</h1>
+
+{% if notas_debito %}
+    <table>
+        <thead>
+            <tr>
+                <th>Número</th>
+                <th>Fecha</th>
+                <th>Monto total</th>
+                <th>Factura Afectada</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for nota in notas_debito %}
+            <tr>
+                <td>
+                    <a href="{% url 'editar_nota_debito' nota.id %}">
+                        {{ nota.numero_nota_debito }}
+                    </a>
+                </td>
+                <td>
+                    <a href="{% url 'editar_nota_debito' nota.id %}">
+                        {{ nota.fecha_emision }}
+                    </a>
+                </td>
+                <td>
+                    <a href="{% url 'editar_nota_debito' nota.id %}">
+                        {{ nota.total }}
+                    </a>
+                </td>
+                <td>
+                    <a href="{% url 'editar_nota_debito' nota.id %}">
+                        {{ nota.factura_afectada }}
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No hay notas de débito registradas.</p>
+{% endif %}
+<a class=btn href="{% url 'crear_nota_debito' %}">Crear nueva nota de débito</a>
+{% endblock %}<h2>Debito</h2>

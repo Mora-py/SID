@@ -1,29 +1,47 @@
 from django import forms
-from .models import Factura
+from django.forms import inlineformset_factory
+from .models import Factura, ProductoFactura
 
 class FacturaForm(forms.ModelForm):
-    productos = forms.CharField(
-        widget=forms.Textarea(attrs={'rows': 4}),
-        help_text="Ingresa los productos en formato JSON. Ejemplo: [{'nombre': 'Producto A', 'cantidad': 2, 'precio_unitario': 10.5}]"
-    )
-
     class Meta:
         model = Factura
-        fields = ['lugar_emision', 'fecha_emision', 'nombre_cliente', 'telefono_cliente', 'cedula_cliente', 'productos']
+        fields = [
+            'nombre_cliente',
+            'lugar_emision',
+            'fecha_emision',
+            'telefono_cliente',
+            'cedula_cliente',
+            'numero_factura',
+        ]
         widgets = {
             'fecha_emision': forms.DateInput(attrs={'type': 'date'}),
         }
 
-    def clean_productos(self):
-        import json
-        data = self.cleaned_data['productos']
-        try:
-            productos = json.loads(data.replace("'", '"'))
-            if not isinstance(productos, list):
-                raise forms.ValidationError("Debes ingresar una lista de productos.")
-            for producto in productos:
-                if not all(k in producto for k in ('nombre', 'cantidad', 'precio_unitario')):
-                    raise forms.ValidationError("Cada producto debe tener 'nombre', 'cantidad' y 'precio_unitario'.")
-            return productos
-        except Exception:
-            raise forms.ValidationError("Formato de productos inválido. Usa una lista de diccionarios.")
+class ProductoFacturaForm(forms.ModelForm):
+    class Meta:
+        model = ProductoFactura
+        fields = ['nombre', 'cantidad', 'precio_unitario']
+
+# Formset para productos asociados a una factura
+ProductoFacturaFormSet = inlineformset_factory(
+    Factura,
+    ProductoFactura,
+    form=ProductoFacturaForm,
+    extra=1,
+    can_delete=True
+)
+
+class FacturaEditarForm(forms.ModelForm):
+    class Meta:
+        model = Factura
+        fields = [
+            'nombre_cliente',
+            'cedula_cliente',
+            'telefono_cliente',
+            'lugar_emision',
+            'fecha_emision'
+            
+        ]
+        widgets = {
+            'fecha_emision': forms.DateInput(attrs={'type': 'date'}),
+        }
