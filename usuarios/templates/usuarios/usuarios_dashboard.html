@@ -15,11 +15,12 @@
     <div class="nav-bar">
         <a href="{% url 'dashboard' %}">Home</a>
         <a href="{% url 'factura-dashboard' %}">Facturas</a>
-        <a href="#">Notas de C/D</a>
-        <a href="#">Ordenes de entrega</a>
+        <a href="{% url 'notas-dashboard' %}">Notas de C/D</a>
+        <a href="{% url 'orden_entrega' %}">Ordenes de entrega</a>
         <a href="{% url 'usuario-dashboard' %}">Usuarios</a>
         <a href="{% url 'logout' %}" class="logout">Cerrar Sesión</a>
     </div>
+
 
     <div class="main-content">
         <p class="welcome-message">¡Hola, {{ username }}!</p>
