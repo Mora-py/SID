@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import OrdenDeEntrega, ProductoEntrega
+from .models.models import OrdenDeEntrega, ProductoEntrega
 
 class OrdenDeEntregaForm(ModelForm):
     class Meta:

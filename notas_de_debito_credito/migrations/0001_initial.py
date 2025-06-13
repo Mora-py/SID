@@ -2,7 +2,7 @@
 
 import django.db.models.deletion
 import django.utils.timezone
-import notas_de_debito_credito.models
+import notas_de_debito_credito.models.models
 from django.conf import settings
 from django.db import migrations, models
 
@@ -25,7 +25,7 @@ class Migration(migrations.Migration):
                 ('fecha_emision', models.DateField(default=django.utils.timezone.now)),
                 ('nombre_cliente', models.CharField(max_length=100)),
                 ('telefono_cliente', models.CharField(max_length=11)),
-                ('cedula_cliente', models.CharField(max_length=11, validators=[notas_de_debito_credito.models.validar_cedula_rif])),
+                ('cedula_cliente', models.CharField(max_length=11, validators=[notas_de_debito_credito.models.models.validar_cedula_rif])),
                 ('numero_nota_debito', models.CharField(max_length=20, unique=True)),
                 ('subtotal', models.DecimalField(decimal_places=2, max_digits=10)),
                 ('iva', models.DecimalField(decimal_places=2, max_digits=10)),

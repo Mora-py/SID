@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.forms import inlineformset_factory
-from .models import OrdenDeEntrega, ProductoEntrega
-from .forms import OrdenDeEntregaForm, ProductoEntregaForm
-from facturas.models import Factura
+from ..models.models import OrdenDeEntrega, ProductoEntrega
+from ..forms import OrdenDeEntregaForm, ProductoEntregaForm
+from facturas.models.models import Factura
 
-class VerOrdenesEntregaView(View):
+class VerOrdenesEntregaController(View):
     plantilla = 'listar-ordenes.html'
     def get(self, request):
         ordenes = OrdenDeEntrega.objects.filter(usuario=request.user)
@@ -14,7 +14,7 @@ class VerOrdenesEntregaView(View):
             'usuario': request.user.username,
         })
 
-class CrearOrdenDeEntregaView(View):
+class CrearOrdenDeEntregaController(View):
     plantilla = 'crear-orden.html'
 
     def get(self, request):
@@ -60,7 +60,7 @@ class CrearOrdenDeEntregaView(View):
             'orden': None,
         })
 
-class EditarOrdenDeEntregaView(View):
+class EditarOrdenDeEntregaController(View):
     plantilla = 'editar-orden.html'
 
     def get(self, request, orden_id):

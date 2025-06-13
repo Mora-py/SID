@@ -3,7 +3,7 @@ from django.utils import timezone
 import re
 from django.core.exceptions import ValidationError
 from django.conf import settings
-from facturas.models import Factura
+from facturas.models.models import Factura
 from decimal import Decimal
 
 def validar_cedula_rif(valor):
@@ -42,7 +42,12 @@ class NotaDebito(models.Model):
         # Generar número de nota de débito si no existe
         if not self.numero_nota_debito:
             count = NotaDebito.objects.filter(usuario=self.usuario).count() + 1
-            self.numero_nota_debito = f"ND-{count:05d}"
+            while True:
+                numero = f"ND-{count:05d}"
+                if not NotaDebito.objects.filter(numero_nota_debito=numero).exists():
+                    self.numero_nota_debito = numero
+                    break
+                count += 1
 
         super().save(*args, **kwargs)
     
@@ -92,7 +97,12 @@ class NotaCredito(models.Model):
 
         if not self.numero_nota_credito:
             count = NotaCredito.objects.filter(usuario=self.usuario).count() + 1
-            self.numero_nota_credito = f"NC-{count:05d}"
+            while True:
+                numero = f"NC-{count:05d}"
+                if not NotaCredito.objects.filter(numero_nota_credito=numero).exists():
+                    self.numero_nota_credito = numero
+                    break
+                count += 1
 
         super().save(*args, **kwargs)
 

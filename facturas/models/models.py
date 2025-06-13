@@ -43,14 +43,17 @@ class Factura(models.Model):
 
     def save(self, *args, **kwargs): 
         is_new = self.pk is None
-       
+
         if not self.numero_factura:
             count = Factura.objects.filter(usuario=self.usuario).count() + 1
-            self.numero_factura = f"F-{count:05d}"
-        super().save(*args, **kwargs)  
-        if not is_new:
-            self.calcular_totales()
-            super().save(update_fields=['subtotal', 'iva', 'total'])
+            while True:
+                numero = f"F-{count:05d}"
+                if not Factura.objects.filter(numero_factura=numero).exists():
+                    self.numero_factura = numero
+                    break
+                count += 1
+
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"Factura #{self.id} - {self.nombre_cliente}"

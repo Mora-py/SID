@@ -1,19 +1,18 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.forms import inlineformset_factory
-from .forms import NotaDebitoForm, ConceptoDebitoForm, NotaCreditoForm, ConceptoCreditoForm
-from .models import NotaDebito, ConceptoDebito, Factura, NotaCredito, ConceptoCredito
-
+from ..forms import NotaDebitoForm, ConceptoDebitoForm, NotaCreditoForm, ConceptoCreditoForm
+from ..models.models import NotaDebito, ConceptoDebito, Factura, NotaCredito, ConceptoCredito
 
 # Create your views here.
 
-class NotasDebitoCreditoView(View):
+class NotasDebitoCreditoController(View):
     plantilla = 'notas-dashboard.html'
     
     def get(self, request):
         return render(request, self.plantilla)
 
-class VerNotasDebitoView(View):
+class VerNotasDebitoController(View):
     plantilla = 'notas-debito.html'
     
     def get(self, request):
@@ -22,7 +21,7 @@ class VerNotasDebitoView(View):
             'usuario': request.user.username,
         })
     
-class CrearNotaDebitoView(View):
+class CrearNotaDebitoController(View):
     plantilla = 'crear-nota-debito.html'
 
     def get(self, request):
@@ -68,7 +67,7 @@ class CrearNotaDebitoView(View):
             'formset': formset,
         })
 
-class EditarNotaDebitoView(View):
+class EditarNotaDebitoController(View):
     plantilla = 'editar-nota-debito.html'
     
     def get(self, request, nota_debito_id):
@@ -115,7 +114,7 @@ class EditarNotaDebitoView(View):
             'nota_debito': nota_debito,
         })
 
-class VerNotasCreditoView(View):
+class VerNotasCreditoController(View):
     plantilla = 'notas-credito.html'
     def get(self, request):
         return render(request, self.plantilla, {
@@ -123,7 +122,7 @@ class VerNotasCreditoView(View):
             'usuario': request.user.username,
         })
 
-class CrearNotaCreditoView(View):
+class CrearNotaCreditoController(View):
     plantilla = 'crear-nota-credito.html'
     def get(self, request):
         ConceptoCreditoFormSet = inlineformset_factory(
@@ -165,7 +164,7 @@ class CrearNotaCreditoView(View):
             'formset': formset,
         })
 
-class EditarNotaCreditoView(View):
+class EditarNotaCreditoController(View):
     plantilla = 'editar-nota-credito.html'
     
     def get(self, request, nota_credito_id):
@@ -211,5 +210,3 @@ class EditarNotaCreditoView(View):
             'formset': formset,
             'nota_credito': nota_credito,
         })
-
-

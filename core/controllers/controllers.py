@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import View # Usaremos Vistas Basadas en Clases (CBV) para orientación a objetos
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-class LoginView(View):
+class LoginController(View):
     plantilla = 'core/login.html'
 
     def get(self, request):
@@ -20,7 +20,7 @@ class LoginView(View):
             return redirect('dashboard') 
         return render(request, self.plantilla, {'form': form})
 
-class DashboardView(LoginRequiredMixin, View):
+class DashboardController(LoginRequiredMixin, View):
     planitlla = 'core/dashboard.html'
 
     def get(self, request):
@@ -30,7 +30,7 @@ class DashboardView(LoginRequiredMixin, View):
         }
         return render(request, self.planitlla, datos)
 
-class LogoutView(View):
+class LogoutController(View):
     def get(self, request):
         logout(request)
-        return redirect('login') 
+        return redirect('login')

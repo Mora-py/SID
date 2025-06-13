@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import FacturaForm, ProductoFacturaFormSet, FacturaEditarForm
-from .models import Factura
+from ..forms import FacturaForm, ProductoFacturaFormSet, FacturaEditarForm
+from ..models.models import Factura
 from django.views import View
 
-class CrearFacturaView(View):
+class CrearFacturaController(View):
     plantilla_crear_factura = "facturas/crear_factura.html"
 
     def get(self, request):
@@ -33,7 +33,7 @@ class CrearFacturaView(View):
             'formset': formset,
         })
 
-class FacturaCreadaView(View):
+class FacturaCreadaController(View):
     plantilla_factura_creada = "facturas/factura_creada.html"
 
     def get(self, request, factura_id):
@@ -44,14 +44,14 @@ class FacturaCreadaView(View):
             'productos': productos,
         })
 
-class FacturaDashboardView(View):
+class FacturaDashboardController(View):
     plantilla_factura_dashboard = "facturas/factura_dashboard.html"
 
     def get(self, request):
         facturas = Factura.objects.filter(usuario=request.user)
         return render(request, self.plantilla_factura_dashboard, {'facturas': facturas})
     
-class EditarFacturaView(View):
+class EditarFacturaController(View):
     plantilla_editar_factura = "facturas/editar_factura.html"
 
     def get(self, request, factura_id):
@@ -67,18 +67,15 @@ class EditarFacturaView(View):
             return redirect('factura-editada', factura_id=factura.id)
         return render(request, self.plantilla_editar_factura, {'form': form, 'factura': factura})
     
-class SeleccionarFacturaView(View):
+class SeleccionarFacturaController(View):
     plantilla_seleccionar_factura = "facturas/seleccionar_factura_para_editar.html"
 
     def get(self, request):
         facturas = Factura.objects.filter(usuario=request.user)
         return render(request, self.plantilla_seleccionar_factura, {'facturas': facturas})
     
-class FacturaEditadaView(View):
+class FacturaEditadaController(View):
     plantilla = 'facturas/facturas_editada.html'
 
     def get(self, request, factura_id):
         return render(request, self.plantilla)
-
-
-

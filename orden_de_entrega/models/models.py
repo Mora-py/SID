@@ -1,6 +1,6 @@
 from django.db import models
 from django.conf import settings
-from facturas.models import Factura
+from facturas.models.models import Factura
 from decimal import Decimal
 
 class OrdenDeEntrega(models.Model):

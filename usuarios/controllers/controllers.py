@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.views import View
-from .forms import RegistroUsuarioForm, EditarUsuarioForm
+from ..forms import RegistroUsuarioForm, EditarUsuarioForm
 
-class RegistrarUsuarioView(View):
+class RegistrarUsuarioController(View):
     plantilla = 'usuarios/registrar_usuario.html'
 
     def get(self, request):
@@ -17,7 +17,7 @@ class RegistrarUsuarioView(View):
             return redirect('usuario-creado')
         return render(request, self.plantilla, {'form': form})
 
-class EditarUsuarioView(View):
+class EditarUsuarioController(View):
     plantilla = 'usuarios/editar_usuario.html'
 
     def get(self, request, user_id):
@@ -33,7 +33,7 @@ class EditarUsuarioView(View):
             return redirect('usuario-editado')
         return render(request, self.plantilla, {'form': form, 'usuario': usuario})
 
-class UsuariosDashboardView(View):
+class UsuariosDashboardController(View):
     plantilla = 'usuarios/usuarios_dashboard.html'
     
     def get(self, request):
@@ -43,19 +43,19 @@ class UsuariosDashboardView(View):
         }
         return render(request, self.plantilla, datos)
 
-class UsuarioCreadoView(View):
+class UsuarioCreadoController(View):
     plantilla = 'usuarios/usuario_creado.html'
 
     def get(self, request):
         return render(request, self.plantilla)
     
-class UsuarioEditadoView(View):
+class UsuarioEditadoController(View):
     plantilla = 'usuarios/usuario_editado.html'
 
     def get(self, request):
         return render(request, self.plantilla)
 
-class SeleccionarUsuarioEditarView(View):
+class SeleccionarUsuarioEditarController(View):
     plantilla = 'usuarios/seleccionar_usuario_editar.html'
 
     def get(self, request):
