@@ -6,7 +6,7 @@ from django.views.generic import View # Usaremos Vistas Basadas en Clases (CBV) 
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 class LoginController(View):
-    plantilla = 'core/login.html'
+    plantilla = 'login.html'
 
     def get(self, request):
         form = AuthenticationForm()
@@ -21,7 +21,7 @@ class LoginController(View):
         return render(request, self.plantilla, {'form': form})
 
 class DashboardController(LoginRequiredMixin, View):
-    planitlla = 'core/dashboard.html'
+    planitlla = 'dashboard.html'
 
     def get(self, request):
         datos = {

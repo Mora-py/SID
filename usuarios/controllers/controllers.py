@@ -4,7 +4,7 @@ from django.views import View
 from ..forms import RegistroUsuarioForm, EditarUsuarioForm
 
 class RegistrarUsuarioController(View):
-    plantilla = 'usuarios/registrar_usuario.html'
+    plantilla = 'registrar_usuario.html'
 
     def get(self, request):
         form = RegistroUsuarioForm()
@@ -18,7 +18,7 @@ class RegistrarUsuarioController(View):
         return render(request, self.plantilla, {'form': form})
 
 class EditarUsuarioController(View):
-    plantilla = 'usuarios/editar_usuario.html'
+    plantilla = 'editar_usuario.html'
 
     def get(self, request, user_id):
         usuario = get_object_or_404(User, pk=user_id)
@@ -34,7 +34,7 @@ class EditarUsuarioController(View):
         return render(request, self.plantilla, {'form': form, 'usuario': usuario})
 
 class UsuariosDashboardController(View):
-    plantilla = 'usuarios/usuarios_dashboard.html'
+    plantilla = 'usuarios_dashboard.html'
     
     def get(self, request):
         datos = {
@@ -44,19 +44,19 @@ class UsuariosDashboardController(View):
         return render(request, self.plantilla, datos)
 
 class UsuarioCreadoController(View):
-    plantilla = 'usuarios/usuario_creado.html'
+    plantilla = 'usuario_creado.html'
 
     def get(self, request):
         return render(request, self.plantilla)
     
 class UsuarioEditadoController(View):
-    plantilla = 'usuarios/usuario_editado.html'
+    plantilla = 'usuario_editado.html'
 
     def get(self, request):
         return render(request, self.plantilla)
 
 class SeleccionarUsuarioEditarController(View):
-    plantilla = 'usuarios/seleccionar_usuario_editar.html'
+    plantilla = 'seleccionar_usuario_editar.html'
 
     def get(self, request):
         usuarios = User.objects.all()

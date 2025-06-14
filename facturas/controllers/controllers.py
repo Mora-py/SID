@@ -4,7 +4,7 @@ from ..models.models import Factura
 from django.views import View
 
 class CrearFacturaController(View):
-    plantilla_crear_factura = "facturas/crear_factura.html"
+    plantilla_crear_factura = "crear_factura.html"
 
     def get(self, request):
         factura_form = FacturaForm(initial={'usuario': request.user})
@@ -21,7 +21,7 @@ class CrearFacturaController(View):
             factura = factura_form.save(commit=False)
             factura.usuario = request.user
             factura.save()
-            # Aquí está el cambio importante: pasa la instancia de factura al formset
+            # Aqqui está el cambio importante: pasa la instancia de factura al formset
             formset.instance = factura
             formset.save()
             # Calcula y guarda los totales después de guardar los productos
@@ -34,25 +34,25 @@ class CrearFacturaController(View):
         })
 
 class FacturaCreadaController(View):
-    plantilla_factura_creada = "facturas/factura_creada.html"
+    plantilla_factura_creada = "factura_creada.html"
 
     def get(self, request, factura_id):
         factura = get_object_or_404(Factura, id=factura_id)
-        productos = factura.productos.all()  # related_name='productos'
+        productos = factura.productos.all()
         return render(request, self.plantilla_factura_creada, {
             'factura': factura,
             'productos': productos,
         })
 
 class FacturaDashboardController(View):
-    plantilla_factura_dashboard = "facturas/factura_dashboard.html"
+    plantilla_factura_dashboard = "factura_dashboard.html"
 
     def get(self, request):
         facturas = Factura.objects.filter(usuario=request.user)
         return render(request, self.plantilla_factura_dashboard, {'facturas': facturas})
     
 class EditarFacturaController(View):
-    plantilla_editar_factura = "facturas/editar_factura.html"
+    plantilla_editar_factura = "editar_factura.html"
 
     def get(self, request, factura_id):
         factura = get_object_or_404(Factura, id=factura_id, usuario=request.user)
@@ -68,14 +68,14 @@ class EditarFacturaController(View):
         return render(request, self.plantilla_editar_factura, {'form': form, 'factura': factura})
     
 class SeleccionarFacturaController(View):
-    plantilla_seleccionar_factura = "facturas/seleccionar_factura_para_editar.html"
+    plantilla_seleccionar_factura = "seleccionar_factura_para_editar.html"
 
     def get(self, request):
         facturas = Factura.objects.filter(usuario=request.user)
         return render(request, self.plantilla_seleccionar_factura, {'facturas': facturas})
     
 class FacturaEditadaController(View):
-    plantilla = 'facturas/facturas_editada.html'
+    plantilla = 'facturas_editada.html'
 
     def get(self, request, factura_id):
         return render(request, self.plantilla)
