@@ -37,11 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core',
-    'facturas',
-    'usuarios',
-    'notas_de_debito_credito',
-    'orden_de_entrega',
+    'Backend.core',
+    'Backend.facturas',
+    'Backend.usuarios',
+    'Backend.notas_de_debito_credito',
+    'Backend.orden_de_entrega',
 ]
 
 MIDDLEWARE = [
@@ -59,7 +59,7 @@ ROOT_URLCONF = 'imprenta_digital.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'Frontend', 'Templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -119,6 +119,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
+STATICFILES_DIRS = [
+    BASE_DIR / "Frontend" / "Styles",
+]
 STATIC_URL = 'static/'
 
 # Default primary key field type

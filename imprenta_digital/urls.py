@@ -21,17 +21,17 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     #paths de la aplicacion core
-    path('', include('core.urls')), 
+    path('', include('Backend.core.urls')), 
 
     #paths de facturas 
-    path('', include('facturas.urls')),
+    path('', include('Backend.facturas.urls')),
 
     #paths de usuarios
-    path('', include('usuarios.urls')),
+    path('', include('Backend.usuarios.urls')),
 
     # paths de las notas
-    path('', include('notas_de_debito_credito.urls')), 
+    path('', include('Backend.notas_de_debito_credito.urls')), 
     
     # paths de las ordenes de entrega
-    path('', include('orden_de_entrega.urls')), 
+    path('', include('Backend.orden_de_entrega.urls')), 
 ]
