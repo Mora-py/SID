@@ -29,6 +29,7 @@ class Factura(models.Model):
     iva = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     numero_factura = models.CharField(max_length=20, unique=True, blank=True, null=True)
+    emitida = models.BooleanField(default=False)
 
     def calcular_totales(self):
         subtotal = sum([p.cantidad * p.precio_unitario for p in self.productos.all()])
@@ -37,6 +38,9 @@ class Factura(models.Model):
         self.subtotal = subtotal
         self.iva = iva
         self.total = total
+
+    def emitir_factura(self):
+        self.emitida = True
 
     def save(self, *args, **kwargs): 
         is_new = self.pk is None

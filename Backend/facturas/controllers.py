@@ -43,6 +43,27 @@ class FacturaCreadaController(View):
             'factura': factura,
             'productos': productos,
         })
+    
+class ConfirmarEmisionFactura(View):
+    plantilla_factura_creada = "confirmar_emitir_factura.html"
+
+    def get(self, request, factura_id):
+        factura = get_object_or_404(Factura, id=factura_id)
+        productos = factura.productos.all()
+        if request.GET.get('emitir') == '1':
+            factura.emitida = True
+            factura.save(update_fields=['emitida'])
+            return redirect('factura-emitida')
+        return render(request, self.plantilla_factura_creada, {
+            'factura': factura,
+            'productos': productos,
+        })
+    
+class FacturaEmitidaController(View):
+    plantilla = "factura_emitida.html"
+
+    def get(self, request):
+        return render(request, self.plantilla)
 
 class FacturaDashboardController(View):
     plantilla_factura_dashboard = "factura_dashboard.html"

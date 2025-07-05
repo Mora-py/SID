@@ -27,23 +27,16 @@
         <a href="{% url 'logout' %}" class="logout">Cerrar Sesión</a>
     </div>
     <div class="main-content">
-        <h1>¡Factura creada exitosamente!</h1>
+        <h1>¿Desea emitir la factura?</h1>
+        <h2>Una vez emitida la factura no podra modificar o eliminar la misma</h2>
         <div class="options-grid">
             <div class="option-card">
-                <h3>Volver al tablero de factura </h3>
+                <h3>No Emitir </h3>
                 <a href="{% url 'factura-dashboard' %}" class="btn">Volver a facturas</a>
             </div>
             <div class="option-card">
                 <h3>Emitir Factura</h3>
-                <a href="{% url 'confirmar-emitir-factura' factura.id %}" class="btn">Ir a emitir</a>
-            </div>
-            <div class="option-card">
-                <h3>Volver al tablero principal</h3>
-                <a href="{% url 'dashboard' %}" class="btn">Volver a home</a>
-            </div>
-            <div class="option-card">
-                <h3>Crear otra factura</h3>
-                <a href="{% url 'crear-factura' %}" class="btn">Crear otra factura</a>
+                <a href="{% url 'confirmar-emitir-factura' factura.id %}?emitir=1" class="btn">Emitir factura</a>
             </div>
     </div>
         <h2>Factura #{{ factura.numero_factura|default:factura.id }}</h2>
