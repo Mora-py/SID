@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.forms import inlineformset_factory
-from ..forms import NotaDebitoForm, ConceptoDebitoForm, NotaCreditoForm, ConceptoCreditoForm
-from ..models.models import NotaDebito, ConceptoDebito, Factura, NotaCredito, ConceptoCredito
+from .forms import NotaDebitoForm, ConceptoDebitoForm, NotaCreditoForm, ConceptoCreditoForm
+from .models import NotaDebito, ConceptoDebito, Factura, NotaCredito, ConceptoCredito
 
 # Create your views here.
 

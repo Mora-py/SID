@@ -1,5 +1,5 @@
 from django.urls import path
-from .controllers.controllers import CrearFacturaController, FacturaCreadaController, FacturaDashboardController, EditarFacturaController, SeleccionarFacturaController, FacturaEditadaController
+from .controllers import CrearFacturaController, FacturaCreadaController, FacturaDashboardController, EditarFacturaController, SeleccionarFacturaController, FacturaEditadaController
 
 urlpatterns = [
     path('factura-dashboard/', FacturaDashboardController.as_view(), name='factura-dashboard'),

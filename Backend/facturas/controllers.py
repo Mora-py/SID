@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import FacturaForm, ProductoFacturaFormSet, FacturaEditarForm
-from ..models.models import Factura
+from .models import Factura
 from django.views import View
 
 class CrearFacturaController(View):

@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import inlineformset_factory
-from ..models.models import Factura, ProductoFactura
+from .models import Factura, ProductoFactura
 
 class FacturaForm(forms.ModelForm):
     class Meta:

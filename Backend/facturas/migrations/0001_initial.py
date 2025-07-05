@@ -2,7 +2,7 @@
 
 import django.db.models.deletion
 import django.utils.timezone
-import Backend.facturas.models.models
+import Backend.facturas.models
 from django.conf import settings
 from django.db import migrations, models
 
@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
                 ('fecha_emision', models.DateField(default=django.utils.timezone.now)),
                 ('nombre_cliente', models.CharField(max_length=100)),
                 ('telefono_cliente', models.CharField(max_length=11)),
-                ('cedula_cliente', models.CharField(max_length=11, validators=[Backend.facturas.models.models.validar_cedula_rif])),
+                ('cedula_cliente', models.CharField(max_length=11, validators=[Backend.facturas.models.validar_cedula_rif])),
                 ('numero_factura', models.PositiveIntegerField()),
                 ('productos', models.JSONField(help_text="Lista de productos con cantidad, nombre y precio_unitario. Ejemplo: [{'nombre': 'Producto A', 'cantidad': 2, 'precio_unitario': 10.5}]")),
                 ('subtotal', models.DecimalField(decimal_places=2, max_digits=10)),

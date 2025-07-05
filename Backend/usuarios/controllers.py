@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.views import View
-from ..forms import RegistroUsuarioForm, EditarUsuarioForm
+from .forms import RegistroUsuarioForm, EditarUsuarioForm
 
 class RegistrarUsuarioController(View):
     plantilla = 'registrar_usuario.html'

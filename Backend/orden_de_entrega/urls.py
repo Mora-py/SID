@@ -1,5 +1,5 @@
 from django.urls import path
-from .controllers.controllers import VerOrdenesEntregaController, CrearOrdenDeEntregaController, EditarOrdenDeEntregaController
+from .controllers import VerOrdenesEntregaController, CrearOrdenDeEntregaController, EditarOrdenDeEntregaController
 
 urlpatterns = [
     path('ordenes/', VerOrdenesEntregaController.as_view(), name='orden_entrega'),

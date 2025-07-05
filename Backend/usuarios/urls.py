@@ -1,5 +1,5 @@
 from django.urls import path
-from .controllers.controllers import RegistrarUsuarioController, EditarUsuarioController, UsuariosDashboardController, UsuarioCreadoController, SeleccionarUsuarioEditarController, UsuarioEditadoController
+from .controllers import RegistrarUsuarioController, EditarUsuarioController, UsuariosDashboardController, UsuarioCreadoController, SeleccionarUsuarioEditarController, UsuarioEditadoController
 
 urlpatterns = [
     path('usuario-dashboard/', UsuariosDashboardController.as_view(), name='usuario-dashboard'),

@@ -1,5 +1,5 @@
 from django.urls import path
-from .controllers.controllers import LoginController, DashboardController, LogoutController
+from .controllers import LoginController, DashboardController, LogoutController
 
 urlpatterns = [
     path('login/', LoginController.as_view(), name='login'),

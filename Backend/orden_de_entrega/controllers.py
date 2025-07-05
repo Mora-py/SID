@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.forms import inlineformset_factory
-from Backend.orden_de_entrega.models.models import OrdenDeEntrega, ProductoEntrega
+from Backend.orden_de_entrega.models import OrdenDeEntrega, ProductoEntrega
 from Backend.orden_de_entrega.forms import OrdenDeEntregaForm, ProductoEntregaForm
-from Backend.facturas.models.models import Factura
+from Backend.facturas.models import Factura
 
 class VerOrdenesEntregaController(View):
     plantilla = 'listar-ordenes.html'

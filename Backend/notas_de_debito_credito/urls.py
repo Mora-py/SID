@@ -1,5 +1,5 @@
 from django.urls import path
-from .controllers.controllers import (
+from .controllers import (
     CrearNotaDebitoController, VerNotasDebitoController, EditarNotaDebitoController,
     CrearNotaCreditoController, VerNotasCreditoController, EditarNotaCreditoController,
     NotasDebitoCreditoController

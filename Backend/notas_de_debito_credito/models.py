@@ -3,7 +3,7 @@ from django.utils import timezone
 import re
 from django.core.exceptions import ValidationError
 from django.conf import settings
-from Backend.facturas.models.models import Factura
+from Backend.facturas.models import Factura
 from decimal import Decimal
 
 def validar_cedula_rif(valor):
