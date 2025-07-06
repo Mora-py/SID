@@ -30,6 +30,10 @@
         <h1>¡Factura Emitida exitosamente!</h1>
         <div class="options-grid">
             <div class="option-card">
+                <h3>Descargar Factura </h3>
+                <a href="{% url 'descargar-factura-pdf' factura.id %}" class="btn">Descargar factura PDF</a>
+            </div>
+            <div class="option-card">
                 <h3>Volver al tablero de factura </h3>
                 <a href="{% url 'factura-dashboard' %}" class="btn">Volver a facturas</a>
             </div>

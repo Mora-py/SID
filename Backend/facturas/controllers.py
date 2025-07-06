@@ -2,6 +2,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import FacturaForm, ProductoFacturaFormSet, FacturaEditarForm
 from .models import Factura
 from django.views import View
+from xhtml2pdf import pisa
+from django.urls import reverse
+from django.template.loader import render_to_string
+from django.http import HttpResponse
 
 class CrearFacturaController(View):
     plantilla_crear_factura = "crear_factura.html"
@@ -53,7 +57,8 @@ class ConfirmarEmisionFactura(View):
         if request.GET.get('emitir') == '1':
             factura.emitida = True
             factura.save(update_fields=['emitida'])
-            return redirect('factura-emitida')
+            # Redirige pasando el id de la factura como parámetro GET
+            return redirect(f"{reverse('factura-emitida')}?factura_id={factura.id}")
         return render(request, self.plantilla_factura_creada, {
             'factura': factura,
             'productos': productos,
@@ -63,7 +68,9 @@ class FacturaEmitidaController(View):
     plantilla = "factura_emitida.html"
 
     def get(self, request):
-        return render(request, self.plantilla)
+        factura_id = request.GET.get('factura_id')
+        factura = get_object_or_404(Factura, id=factura_id) if factura_id else None
+        return render(request, self.plantilla, {'factura': factura})
 
 class FacturaDashboardController(View):
     plantilla_factura_dashboard = "factura_dashboard.html"
@@ -100,3 +107,18 @@ class FacturaEditadaController(View):
 
     def get(self, request):
         return render(request, self.plantilla)
+    
+class DescargarFacturaPDFController(View):
+    def get(self, request, factura_id):
+        factura = get_object_or_404(Factura, id=factura_id)
+        productos = factura.productos.all()
+        html_string = render_to_string('factura_pdf.html', {
+            'factura': factura,
+            'productos': productos,
+        })
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = f'attachment; filename="factura_{factura.numero_factura or factura.id}_{factura.nombre_cliente}.pdf"'
+        pisa_status = pisa.CreatePDF(html_string, dest=response)
+        if pisa_status.err:
+            return HttpResponse('Error al generar el PDF', status=500)
+        return response

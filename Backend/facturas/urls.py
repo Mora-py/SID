@@ -1,5 +1,5 @@
 from django.urls import path
-from .controllers import CrearFacturaController, FacturaCreadaController, FacturaDashboardController, EditarFacturaController, SeleccionarFacturaController, FacturaEditadaController, ConfirmarEmisionFactura, FacturaEmitidaController
+from .controllers import CrearFacturaController, FacturaCreadaController, FacturaDashboardController, EditarFacturaController, SeleccionarFacturaController, FacturaEditadaController, ConfirmarEmisionFactura, FacturaEmitidaController, DescargarFacturaPDFController
 
 urlpatterns = [
     path('factura-dashboard/', FacturaDashboardController.as_view(), name='factura-dashboard'),
@@ -10,4 +10,5 @@ urlpatterns = [
     path('factura-editada/<int:factura_id>/', FacturaEditadaController.as_view(), name='factura-editada'),
     path('emitir/<int:factura_id>/', ConfirmarEmisionFactura.as_view(), name='confirmar-emitir-factura'),
     path('factura-emitida/', FacturaEmitidaController.as_view(), name='factura-emitida'),
+    path('descargar/<int:factura_id>/', DescargarFacturaPDFController.as_view(), name='descargar-factura-pdf'),
 ]
