@@ -79,7 +79,7 @@ class FacturaEmitidaController(View):
 
     def get(self, request):
         factura_id = request.GET.get('factura_id')
-        factura = get_object_or_404(Factura, id=factura_id) if factura_id else None
+        factura = get_object_or_404(Factura, id=factura_id)
         return render(request, self.plantilla, {'factura': factura})
     
 class ConfirmarBorrarFactura(View):
@@ -129,8 +129,26 @@ class SeleccionarFacturaController(View):
     plantilla_seleccionar_factura = "seleccionar_factura_para_editar.html"
 
     def get(self, request):
-        facturas = Factura.objects.filter(usuario=request.user)
+        facturas = Factura.objects.filter(usuario=request.user, emitida=False)
         return render(request, self.plantilla_seleccionar_factura, {'facturas': facturas})
+    
+class SeleccionarFacturaEmitidaController(View):
+    plantilla_seleccionar_factura = "seleccionar_factura_emitida.html"
+
+    def get(self, request):
+        facturas = Factura.objects.filter(usuario=request.user, emitida=True)
+        return render(request, self.plantilla_seleccionar_factura, {'facturas': facturas})
+    
+class VerFacturaEmitidaController(View):
+    plantilla = "ver_factura_emitida.html"
+
+    def get(self, request, factura_id):
+        factura = get_object_or_404(Factura, id=factura_id, usuario=request.user, emitida=True)
+        productos = factura.productos.all()
+        return render(request, self.plantilla, {
+            'factura': factura,
+            'productos': productos,
+        })
     
 class FacturaEditadaController(View):
     plantilla = 'facturas_editada.html'
