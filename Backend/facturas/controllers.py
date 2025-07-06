@@ -48,6 +48,17 @@ class FacturaCreadaController(View):
             'productos': productos,
         })
     
+class GestionarFacturaController(View):
+    plantilla_factura_creada = "gestionar_factura.html"
+
+    def get(self, request, factura_id):
+        factura = get_object_or_404(Factura, id=factura_id)
+        productos = factura.productos.all()
+        return render(request, self.plantilla_factura_creada, {
+            'factura': factura,
+            'productos': productos,
+        })
+    
 class ConfirmarEmisionFactura(View):
     plantilla_factura_creada = "confirmar_emitir_factura.html"
 
@@ -57,7 +68,6 @@ class ConfirmarEmisionFactura(View):
         if request.GET.get('emitir') == '1':
             factura.emitida = True
             factura.save(update_fields=['emitida'])
-            # Redirige pasando el id de la factura como parámetro GET
             return redirect(f"{reverse('factura-emitida')}?factura_id={factura.id}")
         return render(request, self.plantilla_factura_creada, {
             'factura': factura,
@@ -71,6 +81,26 @@ class FacturaEmitidaController(View):
         factura_id = request.GET.get('factura_id')
         factura = get_object_or_404(Factura, id=factura_id) if factura_id else None
         return render(request, self.plantilla, {'factura': factura})
+    
+class ConfirmarBorrarFactura(View):
+    plantilla_factura_creada = "confirmar_borrar_factura.html"
+
+    def get(self, request, factura_id):
+        factura = get_object_or_404(Factura, id=factura_id, usuario=request.user)
+        productos = factura.productos.all()
+        if request.GET.get('borrar') == '1':
+            factura.delete()
+            return redirect(f"{reverse('factura-borrada')}?factura_id={factura.id}")
+        return render(request, self.plantilla_factura_creada, {
+            'factura': factura,
+            'productos': productos,
+        })
+
+class FacturaBorradaController(View):
+    plantilla = "factura_borrada.html"
+
+    def get(self, request):
+        return render(request, self.plantilla)
 
 class FacturaDashboardController(View):
     plantilla_factura_dashboard = "factura_dashboard.html"

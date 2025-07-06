@@ -22,11 +22,11 @@
         <a href="{% url 'logout' %}" class="logout">Cerrar Sesión</a>
     </div>
     <div class="main-content">
-        <h2>Seleccionar Factura para Editar</h2>
+        <h2>Seleccionar Factura</h2>
         <ul>
             {% for factura in facturas %}
                 <li>
-                    <a href="{% url 'editar-factura' factura.id %}">
+                    <a href="{% url 'gestionar-factura' factura.id %}">
                         {{ factura.numero_factura|default:factura.id }} - {{ factura.nombre_cliente }}
                     </a>
                 </li>
