@@ -3,10 +3,16 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Imprenta Digital</title>
+    <title>Factura Creada</title>
     <link rel="stylesheet" href="{% static 'styile.css' %}">
+    <style>
+    ul {
+        list-style-type: none;
+        padding-left: 0;
+    }
+</style>
 </head>
+
 <body>
     <div class="header">
         Sistema de Imprenta Digital
@@ -20,25 +26,22 @@
         <a href="{% url 'usuario-dashboard' %}">Usuarios</a>
         <a href="{% url 'logout' %}" class="logout">Cerrar Sesión</a>
     </div>
-
-
     <div class="main-content">
-        <p class="welcome-message">¡Hola, {{ username }}!</p>
-
+        <h1>¡Usuario borrado exitosamente!</h1>
         <div class="options-grid">
-            {% if is_admin %}
             <div class="option-card">
-                <h3>Crear Usuario</h3>
-                <p>Crea nuevo usuarios</p>
-                <a href="{% url 'crear-usuario' %}" class="btn">Crear Usuario</a>
+                <h3>Volver al tablero de usuario </h3>
+                <a href="{% url 'usuario-dashboard' %}" class="btn">Volver a usuarios</a>
             </div>
             <div class="option-card">
-                <h3>Gestionar Usuario</h3>
-                <p>Edita, elimina o vea a sus usuarios</p>
-                <a href="{% url 'seleccionar-usuario' %}" class="btn">Gestionar Usuario</a>
+                <h3>Volver a lista de Usuarios</h3>
+                <a href="{% url 'seleccionar-usuario' %}" class="btn">Volver a lista de usuarios</a>
             </div>
-            {% endif %}
-        </div>
+            <div class="option-card">
+                <h3>Volver al tablero principal</h3>
+                <a href="{% url 'dashboard' %}" class="btn">Volver a home</a>
+            </div>
     </div>
+    
 </body>
 </html>

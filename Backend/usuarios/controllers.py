@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.views import View
 from .forms import RegistroUsuarioForm, EditarUsuarioForm
+from django.urls import reverse
 
 class RegistrarUsuarioController(View):
     plantilla = 'registrar_usuario.html'
@@ -59,6 +60,32 @@ class SeleccionarUsuarioEditarController(View):
     plantilla = 'seleccionar_usuario_editar.html'
 
     def get(self, request):
-        usuarios = User.objects.all()
+        usuarios = User.objects.exclude(id=request.user.id)
         return render(request, self.plantilla, {'usuarios': usuarios})
+    
+class GestionarUsuarioController(View):
+    plantilla = "gestionar_usuario.html"
+
+    def get(self, request, user_id):
+        usuario = get_object_or_404(User, id=user_id)
+        return render(request, self.plantilla, {
+            'user': usuario,
+        })
+    
+class ConfirmarBorrarUsuario(View):
+    plantilla = "confirmar_borrar_usuario.html"
+
+    def get(self, request, user_id):
+        usuario = get_object_or_404(User, id=user_id)
+        if request.GET.get('borrar') == '1':
+            usuario_id = usuario.id
+            usuario.delete()
+            return redirect(f"{reverse('usuario-borrado')}?user_id={usuario_id}")
+        return render(request, self.plantilla, {'user': usuario})
+
+class UsuarioBorradoController(View):
+    plantilla = "usuario_borrado.html"
+
+    def get(self, request):
+        return render(request, self.plantilla)
 

@@ -3,10 +3,16 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Imprenta Digital</title>
+    <title>Usuario Borrado</title>
     <link rel="stylesheet" href="{% static 'styile.css' %}">
+    <style>
+    ul {
+        list-style-type: none;
+        padding-left: 0;
+    }
+    </style>
 </head>
+
 <body>
     <div class="header">
         Sistema de Imprenta Digital
@@ -20,25 +26,19 @@
         <a href="{% url 'usuario-dashboard' %}">Usuarios</a>
         <a href="{% url 'logout' %}" class="logout">Cerrar Sesión</a>
     </div>
-
-
     <div class="main-content">
-        <p class="welcome-message">¡Hola, {{ username }}!</p>
-
+        <h1>¿Desea borrar al usuario?</h1>
+        <h2>Una vez borrado se eliminaran los documentos creados por el mismo, asegurese de tener una copia de las mismos</h2>
         <div class="options-grid">
-            {% if is_admin %}
             <div class="option-card">
-                <h3>Crear Usuario</h3>
-                <p>Crea nuevo usuarios</p>
-                <a href="{% url 'crear-usuario' %}" class="btn">Crear Usuario</a>
+                <h3>No borrar </h3>
+                <a href="{% url 'seleccionar-usuario' %}" class="btn">Volver a lista de usuarios</a>
             </div>
             <div class="option-card">
-                <h3>Gestionar Usuario</h3>
-                <p>Edita, elimina o vea a sus usuarios</p>
-                <a href="{% url 'seleccionar-usuario' %}" class="btn">Gestionar Usuario</a>
+                <h3>Borrar Usuario</h3>
+                <a href="{% url 'confirmar-borrar-usuario' user.id %}?borrar=1" class="btn">Borrar usuario</a>
             </div>
-            {% endif %}
-        </div>
     </div>
+    
 </body>
 </html>
