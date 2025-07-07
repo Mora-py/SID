@@ -10,6 +10,8 @@ class OrdenDeEntrega(models.Model):
     fecha_emision = models.DateField()
     direccion_entrega = models.CharField(max_length=255)
     observaciones = models.TextField(blank=True, null=True)
+    emitida = models.BooleanField(default=False)
+
     
     subtotal = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     iva = models.DecimalField(max_digits=10, decimal_places=2, default=0)

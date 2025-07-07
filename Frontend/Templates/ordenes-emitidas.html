@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Órdenes de Entrega</h1>
-<a href="{% url 'crear_orden_entrega' %}" class="btn btn-success">Crear nueva orden</a>
+<h1>Órdenes de Entrega Emitidas</h1>
 <table>
     <thead>
         <tr>
@@ -18,15 +17,8 @@
             <td>{{ orden.fecha_emision }}</td>
             <td>{{ orden.nombre_cliente }}</td>
             <td>
-                <a href="{% url 'editar_orden_entrega' orden.id %}" class="btn btn-primary btn-sm">Editar</a>
                 <form method="get" action="{% url 'consultar_orden_entrega' orden.id %}" style="display:inline;">
                     <button type="submit" class="btn btn-info btn-sm">Consultar</button>
-                </form>
-                <form method="get" action="{% url 'confirmar_emision_orden_entrega' orden.id %}" style="display:inline;">
-                    <button type="submit" class="btn btn-warning btn-sm">Emitir</button>
-                </form>
-                <form method="get" action="{% url 'eliminar_orden_entrega' orden.id %}" style="display:inline;">
-                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                 </form>
             </td>
         </tr>
