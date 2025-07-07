@@ -3,12 +3,12 @@
 
 
 {% block content %}
-<a class=btn href="{% url 'nota_debito' %}">Volver a Notas de Débito</a> 
-<h1>Detalles de la Nota de Débito {{nota_debito.numero_nota_debito}}</h1>
+<a class="btn" href="{% url 'nota_debito' %}">Volver a Notas de Débito</a> 
+<h1>Detalles de la Nota de Débito {{ nota_debito.numero_nota }}</h1>
 <form method="POST">
     {% csrf_token %}
-    <label for="numero_nota_debito">Número de Nota de Débito:</label>
-    <input type="text" id="numero_nota_debito" value="{{ nota_debito.numero_nota_debito }}" readonly>
+    <label for="numero_nota">Número de Nota de Débito:</label>
+    <input type="text" id="numero_nota" value="{{ nota_debito.numero_nota }}" readonly>
     {{ form.as_p }}
 
     <h3>Conceptos de Débito</h3>
@@ -24,6 +24,15 @@
     <button type="submit">Guardar Cambios</button>
 </form>
 
+{% if not nota_debito.emitida %}
+    <form method="post" style="display:inline;" onsubmit="return confirm('¿Está seguro que desea emitir esta nota? Una vez emitida no podrá ser modificada.');">
+        {% csrf_token %}
+        <button type="submit" name="emitir" value="1">Emitir Nota</button>
+    </form>
+{% else %}
+    <span class="badge badge-success">Emitida</span>
+{% endif %}
+
 <script>
     document.getElementById('add-concepto').onclick = function() {
         var formsetDiv = document.getElementById('formset');
@@ -38,6 +47,5 @@
         totalForms.value = currentFormCount + 1;
     };
 </script>
-
-{% endblock content %}
+{% endblock %}
 

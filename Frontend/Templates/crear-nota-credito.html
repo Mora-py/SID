@@ -2,12 +2,12 @@
 {% load static %}
 
 {% block content %}
-<a class=btn href="{% url 'nota_credito' %}">Volver a Notas de Crédito</a> 
+<a class="btn" href="{% url 'nota_credito' %}">Volver a Notas de Crédito</a> 
 <h1>Crear Nota de Crédito</h1>
-<form method="POST" action="{% url 'crear_nota_credito' %}">
+<form method="POST" action="{% url 'crear-nota-credito' %}">
     {% csrf_token %}
-    <label for="numero_nota_credito">Número de Nota de Crédito:</label>
-    <input type="text" id="numero_nota_credito" value="(Se generará automáticamente)" readonly>
+    <label for="numero_nota">Número de Nota de Crédito:</label>
+    <input type="text" id="numero_nota" value="(Se generará automáticamente)" readonly>
     {{ form.as_p }}
 
     <h3>Conceptos de Crédito</h3>
@@ -24,7 +24,6 @@
 </form>
 
 <script>
-    // JS para añadir formularios dinámicamente
     document.getElementById('add-concepto').onclick = function() {
         var formsetDiv = document.getElementById('formset');
         var totalForms = document.querySelector('[name$="-TOTAL_FORMS"]');
