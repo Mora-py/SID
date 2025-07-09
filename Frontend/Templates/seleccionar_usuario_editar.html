@@ -25,8 +25,8 @@
         <ul>
             {% for usuario in usuarios %}
                 <li>
-                    {{ usuario.username }} ({{ usuario.first_name }} {{ usuario.last_name }})
-                    <a href="{% url 'editar-usuario' usuario.id %}">Editar</a>
+                
+                    <a href="{% url 'gestionar-usuario' usuario.id %}">{{ usuario.username }} ({{ usuario.first_name }} {{ usuario.last_name }})</a>
                 </li>
             {% endfor %}
         </ul>
