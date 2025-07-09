@@ -16,7 +16,7 @@
         <a href="{% url 'dashboard' %}">Home</a>
         <a href="{% url 'factura-dashboard' %}">Facturas</a>
         <a href="{% url 'notas-dashboard' %}">Notas de C/D</a>
-        <a href="{% url 'orden_entrega' %}">Ordenes de entrega</a>
+        <a href="{% url 'ordenes-dashboard' %}">Ordenes de entrega</a>
         <a href="{% url 'usuario-dashboard' %}">Usuarios</a>
         <a href="{% url 'logout' %}" class="logout">Cerrar Sesión</a>
     </div>
@@ -40,7 +40,7 @@
             <div class="option-card">
                 <h3>Ordenes de Entrega</h3>
                 <p>Administra las órdenes de entrega de tus trabajos.</p>
-                <a href="{% url 'orden_entrega' %}" class="btn">Ir a Órdenes</a>
+                <a href="{% url 'ordenes-dashboard' %}" class="btn">Ir a Órdenes</a>
             </div>
 
             {% if is_admin %}

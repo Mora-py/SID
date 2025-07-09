@@ -1,13 +1,13 @@
-from django.forms import ModelForm
-from .models import NotaDebito, ConceptoDebito, NotaCredito, ConceptoCredito
 from django import forms
+from .models import Nota, Concepto
 
-class NotaDebitoForm(ModelForm):
+class NotaDebitoForm(forms.ModelForm):
     class Meta:
-        model = NotaDebito
+        model = Nota
         fields = [
             'factura_afectada',
-            'observaciones'
+            'observaciones',
+            # 'es_debito',  # No mostrar en el formulario
         ]
         widgets = {
             'factura_afectada': forms.Select(),
@@ -18,17 +18,20 @@ class NotaDebitoForm(ModelForm):
             'observaciones': 'Observaciones',
         }
 
-class ConceptoDebitoForm(ModelForm):
-    class Meta:
-        model = ConceptoDebito
-        fields = ['descripcion', 'monto']
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        instance.es_debito = True
+        if commit:
+            instance.save()
+        return instance
 
-class NotaCreditoForm(ModelForm):
+class NotaCreditoForm(forms.ModelForm):
     class Meta:
-        model = NotaCredito
+        model = Nota
         fields = [
             'factura_afectada',
-            'observaciones'
+            'observaciones',
+            # 'es_debito',  # No mostrar en el formulario
         ]
         widgets = {
             'factura_afectada': forms.Select(),
@@ -39,7 +42,14 @@ class NotaCreditoForm(ModelForm):
             'observaciones': 'Observaciones',
         }
 
-class ConceptoCreditoForm(ModelForm):
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        instance.es_debito = False
+        if commit:
+            instance.save()
+        return instance
+
+class ConceptoForm(forms.ModelForm):
     class Meta:
-        model = ConceptoCredito
+        model = Concepto
         fields = ['descripcion', 'monto']
