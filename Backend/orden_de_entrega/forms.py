@@ -7,19 +7,16 @@ class OrdenDeEntregaForm(ModelForm):
         model = OrdenDeEntrega
         fields = [
             'factura_afectada',
-            'fecha_emision',
             'direccion_entrega',
             'observaciones'
         ]
         widgets = {
             'factura_afectada': forms.Select(),
-            'fecha_emision': forms.DateInput(attrs={'type': 'date'}),
             'direccion_entrega': forms.TextInput(),
             'observaciones': forms.Textarea(attrs={'rows': 4}),
         }
         labels = {
             'factura_afectada': 'Factura Asociada',
-            'fecha_emision': 'Fecha de Emisión',
             'direccion_entrega': 'Dirección de Entrega',
             'observaciones': 'Observaciones',
         }

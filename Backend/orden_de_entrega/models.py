@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from Backend.facturas.models import Factura
 from decimal import Decimal
+from django.utils import timezone
 
 class OrdenDeEntrega(models.Model):
     factura_afectada = models.ForeignKey(Factura, on_delete=models.CASCADE)
@@ -42,6 +43,8 @@ class OrdenDeEntrega(models.Model):
         if not self.numero_orden_entrega:
             count = OrdenDeEntrega.objects.filter(usuario=self.usuario).count() + 1
             self.numero_orden_entrega = f"OE-{count:05d}"
+
+        self.fecha_emision = timezone.now()
 
         # Calcula totales antes de guardar
         super().save(*args, **kwargs)

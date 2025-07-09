@@ -8,13 +8,12 @@ class FacturaForm(forms.ModelForm):
         fields = [
             'nombre_cliente',
             'lugar_emision',
-            'fecha_emision',
             'telefono_cliente',
             'cedula_cliente',
             'numero_factura',
         ]
         widgets = {
-            'fecha_emision': forms.DateInput(attrs={'type': 'date'}),
+            
             'numero_factura': forms.TextInput(attrs={
                 'readonly': 'readonly',
                 'placeholder': 'Se generará automáticamente'
@@ -42,9 +41,5 @@ class FacturaEditarForm(forms.ModelForm):
             'cedula_cliente',
             'telefono_cliente',
             'lugar_emision',
-            'fecha_emision'
             
         ]
-        widgets = {
-            'fecha_emision': forms.DateInput(attrs={'type': 'date'}),
-        }

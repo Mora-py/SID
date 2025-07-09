@@ -44,7 +44,7 @@ class Factura(models.Model):
 
     def save(self, *args, **kwargs): 
         is_new = self.pk is None
-
+        self.fecha_emision = timezone.now()
         if not self.numero_factura:
             count = Factura.objects.filter(usuario=self.usuario).count() + 1
             while True:
