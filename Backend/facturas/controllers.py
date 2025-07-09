@@ -153,8 +153,13 @@ class VerFacturaEmitidaController(View):
 class FacturaEditadaController(View):
     plantilla = 'facturas_editada.html'
 
-    def get(self, request):
-        return render(request, self.plantilla)
+    def get(self, request, factura_id):
+        factura = get_object_or_404(Factura, id=factura_id, usuario=request.user)
+        productos = factura.productos.all()
+        return render(request, self.plantilla, {
+            'factura': factura,
+            'productos': productos,
+        })
     
 class DescargarFacturaPDFController(View):
     def get(self, request, factura_id):
